@@ -87,24 +87,6 @@ into the {body} of the default.hbs template --}}
 
             {{#if access}}
             {{!-- if the user has access to this post, show it to them --}}
-
-                {{#if feature_image}}
-                <figure class="post-full-image">
-                    {{!-- This is a responsive image, it loads different sizes depending on device
-                    https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-                    <img
-                        srcset="{{img_url feature_image size="s"}} 300w,
-                                {{img_url feature_image size="m"}} 600w,
-                                {{img_url feature_image size="l"}} 1000w,
-                                {{img_url feature_image size="xl"}} 2000w"
-                        sizes="(max-width: 800px) 400px,
-                            (max-width: 1170px) 1170px,
-                                2000px"
-                        src="{{img_url feature_image size="xl"}}"
-                        alt="{{title}}"
-                    />
-                </figure>
-                {{/if}}
                 <section class="post-full-content">
                     <div class="post-content">
                         {{content}}
@@ -112,7 +94,7 @@ into the {body} of the default.hbs template --}}
                 </section>
 
             {{else}}
-            {{!-- if the user does not have access, show them an upgrade CTA --}}
+            {{!-- if the user does not have access, show them an upgrade CTA
 
                 <section class="post-full-content">
                     <div class="post-content">
@@ -130,7 +112,7 @@ into the {body} of the default.hbs template --}}
                         </div>
                     </aside>
                 </section>
-
+            --}}
             {{/if}}
 
             {{!--
@@ -199,6 +181,7 @@ into the {body} of the default.hbs template --}}
 
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
+
 <script>
 
 // NOTE: Scroll performance is poor in Safari
@@ -276,6 +259,10 @@ $(document).ready(function () {
             $this.children('.author-card').removeClass('hovered');
         }, 800);
     });
+
+    $(".kg-gallery-image img, .kg-image-card img").each(function () {
+        $(this).replaceWith('<a class="fancybox" data-fancybox="gallery" href="'+$(this).attr('src')+'">'+$(this)[0].outerHTML +'</a>');
+    }).promise().done(function(){ $('.fancybox').fancybox(); });
 
 });
 </script>

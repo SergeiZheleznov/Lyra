@@ -63,6 +63,16 @@ function js(done) {
     ], handleError(done));
 }
 
+function fancybox(done) {
+    pump([
+        src([
+            'node_modules/@fancyapps/fancybox/dist/*.min.css',
+            'node_modules/@fancyapps/fancybox/dist/*.min.js'
+        ]),
+        dest('assets/built/')
+    ], handleError(done));
+}
+
 function zipper(done) {
     const targetDir = 'dist/';
     const themeName = require('./package.json').name;
@@ -82,7 +92,7 @@ function zipper(done) {
 const cssWatcher = () => watch('assets/css/**', css);
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const watcher = parallel(cssWatcher, hbsWatcher);
-const build = series(css, js);
+const build = series(css, fancybox, js);
 const dev = series(build, serve, watcher);
 
 exports.build = build;
