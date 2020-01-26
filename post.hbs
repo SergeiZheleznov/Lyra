@@ -126,6 +126,7 @@ into the {body} of the default.hbs template --}}
     </div>
 </main>
 
+{{#if @member}}
 {{!-- Links to Previous/Next posts --}}
 <aside class="read-next outer">
     <div class="inner">
@@ -173,7 +174,7 @@ into the {body} of the default.hbs template --}}
         </div>
     </div>
 </aside>
-
+{{/if}}
 {{!-- Floating header which appears on-scroll, included from includes/floating-header.hbs --}}
 {{!-- {{> floating-header}} --}}
 
