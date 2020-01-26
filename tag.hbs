@@ -23,13 +23,11 @@
 <main id="site-main" class="site-main outer">
     <div class="inner posts">
         <div class="post-feed">
-
-            {{#foreach posts visibility="all"}}
-                {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
-                {{#has tag="#hidden"}}{{else}}
-                    {{> "post-card"}}
-                {{/has}}
-            {{/foreach}}
+            {{#if @member}}
+                {{#foreach posts visibility="all"}}{{> "post-card"}}{{/foreach}}
+            {{else}}
+                {{#foreach posts}}{{> "post-card"}}{{/foreach}}
+            {{/if}}
         </div>
     </div>
 </main>
